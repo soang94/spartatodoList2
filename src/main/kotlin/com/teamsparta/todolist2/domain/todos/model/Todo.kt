@@ -35,6 +35,16 @@ class Todo(
         content = request.content
         name = request.name
     }
+
+    @Column(name = "complete")
+    private var _complete: Boolean = false
+
+    val complete: Boolean
+        get() = _complete
+
+    fun complete() {
+        _complete = true
+    }
 }
 
 fun Todo.toResponse(): TodoResponse {
@@ -44,5 +54,6 @@ fun Todo.toResponse(): TodoResponse {
         content = content,
         createAt = createAt,
         name = name,
+        complete = complete,
     )
 }

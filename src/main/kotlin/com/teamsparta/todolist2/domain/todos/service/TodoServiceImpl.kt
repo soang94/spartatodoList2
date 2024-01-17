@@ -61,4 +61,14 @@ class TodoServiceImpl(
         card.removeTodo(todo)
         cardRepository.save(card)
     }
+
+    @Transactional
+    override fun completeTodo(cardId: Long, todoId: Long) {
+        val todo = todoRepository.findByCardIdAndId(cardId, todoId)
+
+        todo?.let {
+            it.complete()
+            todoRepository.save(it)
+        }
+    }
 }

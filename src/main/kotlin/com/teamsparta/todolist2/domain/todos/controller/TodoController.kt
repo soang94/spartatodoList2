@@ -65,6 +65,19 @@ class TodoController(
             .body(todoService.updateTodo(cardId, todoId, updateTodoRequest))
     }
 
+    @Operation(summary = "todo complete")
+    @PutMapping("/{todoId}/complete")
+    fun completeTodo(
+        @PathVariable cardId: Long,
+        @PathVariable todoId: Long,
+    ): ResponseEntity<Any> {
+        todoService.completeTodo(cardId, todoId)
+
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body("할 일을 완료하였습니다.")
+    }
+
     @Operation(summary = "todo 삭제")
     @DeleteMapping("/{todoId}")
     fun deleteTodo(

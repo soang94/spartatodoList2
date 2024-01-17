@@ -8,4 +8,5 @@ data class TodoResponse(
     val content: String,
     val createAt: Date,
     val name: String,
+    val complete: Boolean,
 )
