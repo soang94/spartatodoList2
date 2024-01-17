@@ -10,7 +10,7 @@ interface CardService {
 
     fun card(cardId: Long): CardResponse
 
-    fun createCard(cardId: Long, request: CreateCardRequest): CardResponse
+    fun createCard(request: CreateCardRequest): CardResponse
 
     fun updateCard(cardId: Long, request: UpdateCardRequest): CardResponse
 

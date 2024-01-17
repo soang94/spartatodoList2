@@ -3,7 +3,9 @@ package com.teamsparta.todolist2.domain.cards.service
 import com.teamsparta.todolist2.domain.cards.dto.CardResponse
 import com.teamsparta.todolist2.domain.cards.dto.CreateCardRequest
 import com.teamsparta.todolist2.domain.cards.dto.UpdateCardRequest
+import org.springframework.stereotype.Service
 
+@Service
 class CardServiceImpl: CardService {
     override fun cards(): List<CardResponse> {
         TODO("Not yet implemented")
@@ -13,7 +15,7 @@ class CardServiceImpl: CardService {
         TODO("Not yet implemented")
     }
 
-    override fun createCard(cardId: Long, request: CreateCardRequest): CardResponse {
+    override fun createCard(request: CreateCardRequest): CardResponse {
         TODO("Not yet implemented")
     }
 
