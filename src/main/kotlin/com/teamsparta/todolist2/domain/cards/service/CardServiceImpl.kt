@@ -42,7 +42,7 @@ class CardServiceImpl(
 
     @Transactional
     override fun deleteCard(cardId: Long) {
-        val card = cardRepository.findByIdOrNull(cardId) ?: throw ModelNotFoundException("card", cardId)
-        cardRepository.delete(card)
+        val cards = cardRepository.findByIdOrNull(cardId) ?: throw ModelNotFoundException("card", cardId)
+        cardRepository.delete(cards)
     }
 }

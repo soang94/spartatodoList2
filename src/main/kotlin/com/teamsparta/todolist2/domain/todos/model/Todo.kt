@@ -7,7 +7,7 @@ import jakarta.persistence.*
 import java.util.Date
 
 @Entity
-@Table(name = "todos")
+@Table(name = "todo")
 class Todo(
     @Column(name = "title")
     var title: String,
@@ -15,14 +15,14 @@ class Todo(
     @Column(name = "content")
     var content: String,
 
-    @Column(name = "createAt")
+    @Column(name = "create_at")
     var createAt: Date,
 
     @Column(name = "name")
     var name: String,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cards_id")
+    @JoinColumn(name = "card_id")
     var card: Card,
 ) {
 

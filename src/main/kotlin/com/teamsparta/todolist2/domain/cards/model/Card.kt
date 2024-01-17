@@ -6,13 +6,13 @@ import com.teamsparta.todolist2.domain.todos.model.Todo
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "cards")
+@Table(name = "card")
 class Card(
     @Column(name = "name")
     var name: String,
 
-    @OneToMany(mappedBy = "cards", cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.LAZY)
-    var todo: MutableList<Todo> = mutableListOf(),
+    @OneToMany(mappedBy = "card", cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.LAZY)
+    var todos: MutableList<Todo> = mutableListOf(),
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +21,15 @@ class Card(
     fun toUpdate(request: UpdateCardRequest) {
         name = request.name
     }
+
+    fun createTodo(todo: Todo) {
+        todos.add(todo)
+    }
+
+    fun removeTodo(todo: Todo) {
+        todos.remove(todo)
+    }
+
 }
 
 fun Card.toResponse(): CardResponse {

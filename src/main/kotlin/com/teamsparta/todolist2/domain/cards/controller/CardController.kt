@@ -63,7 +63,7 @@ class CardController(
     @DeleteMapping("/{cardId}")
     fun deleteCard(
         @PathVariable cardId: Long
-    ): ResponseEntity<Any>{
+    ): ResponseEntity<Any> {
         cardService.deleteCard(cardId)
         return ResponseEntity
             .status(HttpStatus.OK)

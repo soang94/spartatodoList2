@@ -71,6 +71,7 @@ class TodoController(
         @PathVariable cardId: Long,
         @PathVariable todoId: Long
     ): ResponseEntity<Any> {
+        todoService.deleteTodo(cardId, todoId)
         return ResponseEntity
             .status(HttpStatus.OK)
             .body("할 일 삭제 완료했습니다.")
