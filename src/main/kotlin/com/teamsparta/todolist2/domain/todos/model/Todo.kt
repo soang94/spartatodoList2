@@ -1,6 +1,7 @@
 package com.teamsparta.todolist2.domain.todos.model
 
 import com.teamsparta.todolist2.domain.cards.model.Card
+import com.teamsparta.todolist2.domain.comments.model.Comment
 import com.teamsparta.todolist2.domain.todos.dto.TodoResponse
 import com.teamsparta.todolist2.domain.todos.dto.UpdateTodoRequest
 import jakarta.persistence.*
@@ -24,6 +25,9 @@ class Todo(
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "card_id")
     var card: Card,
+
+    @OneToMany(mappedBy = "todo", cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.LAZY)
+    var comments: MutableList<Comment> = mutableListOf()
 ) {
 
     @Id
@@ -44,6 +48,14 @@ class Todo(
 
     fun complete() {
         _complete = true
+    }
+
+    fun createComment(comment: Comment) {
+        comments.add(comment)
+    }
+
+    fun removeComment(comment: Comment) {
+        comments.remove(comment)
     }
 }
 
