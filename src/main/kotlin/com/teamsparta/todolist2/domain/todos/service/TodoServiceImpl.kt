@@ -3,7 +3,9 @@ package com.teamsparta.todolist2.domain.todos.service
 import com.teamsparta.todolist2.domain.todos.dto.CreateTodoRequest
 import com.teamsparta.todolist2.domain.todos.dto.TodoResponse
 import com.teamsparta.todolist2.domain.todos.dto.UpdateTodoRequest
+import org.springframework.stereotype.Service
 
+@Service
 class TodoServiceImpl: TodoService {
     override fun todos(cardId: Long): List<TodoResponse> {
         TODO("Not yet implemented")
