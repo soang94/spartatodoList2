@@ -1,6 +1,8 @@
 package com.teamsparta.todolist2.domain.todos.model
 
+import com.teamsparta.todolist2.domain.cards.model.Card
 import com.teamsparta.todolist2.domain.todos.dto.TodoResponse
+import com.teamsparta.todolist2.domain.todos.dto.UpdateTodoRequest
 import jakarta.persistence.*
 import java.util.Date
 
@@ -14,14 +16,25 @@ class Todo(
     var content: String,
 
     @Column(name = "createAt")
-    var date: Date,
+    var createAt: Date,
 
     @Column(name = "name")
     var name: String,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cards_id")
+    var card: Card,
 ) {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
+
+    fun toUpdate(request: UpdateTodoRequest) {
+        title = request.title
+        content = request.content
+        name = request.name
+    }
 }
 
 fun Todo.toResponse(): TodoResponse {
@@ -29,7 +42,7 @@ fun Todo.toResponse(): TodoResponse {
         id = id!!,
         title = title,
         content = content,
-        createAt = date,
+        createAt = createAt,
         name = name,
     )
 }

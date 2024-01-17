@@ -4,6 +4,7 @@ import com.teamsparta.todolist2.domain.cards.dto.CardResponse
 import com.teamsparta.todolist2.domain.cards.dto.CreateCardRequest
 import com.teamsparta.todolist2.domain.cards.dto.UpdateCardRequest
 import com.teamsparta.todolist2.domain.cards.service.CardService
+import io.swagger.v3.oas.annotations.Operation
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -21,6 +22,7 @@ class CardController(
     private val cardService: CardService
 ) {
 
+    @Operation(summary = "card 전체 조회")
     @GetMapping
     fun cards(): ResponseEntity<List<CardResponse>> {
         return ResponseEntity
@@ -28,6 +30,7 @@ class CardController(
             .body(cardService.cards())
     }
 
+    @Operation(summary = "card 단건 조회")
     @GetMapping("/{cardId}")
     fun card(@PathVariable cardId: Long): ResponseEntity<CardResponse> {
         return ResponseEntity
@@ -35,6 +38,7 @@ class CardController(
             .body(cardService.card(cardId))
     }
 
+    @Operation(summary = "card 생성")
     @PostMapping
     fun createCard(
         @RequestBody createCardRequest: CreateCardRequest
@@ -44,6 +48,7 @@ class CardController(
             .body(cardService.createCard(createCardRequest))
     }
 
+    @Operation(summary = "card 수정")
     @PutMapping("/{cardId}")
     fun updateCard(
         @PathVariable cardId: Long,
@@ -54,6 +59,7 @@ class CardController(
             .body(cardService.updateCard(cardId, updateCardRequest))
     }
 
+    @Operation(summary = "card 삭제")
     @DeleteMapping("/{cardId}")
     fun deleteCard(
         @PathVariable cardId: Long

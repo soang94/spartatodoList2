@@ -5,6 +5,7 @@ import com.teamsparta.todolist2.domain.todos.dto.CreateTodoRequest
 import com.teamsparta.todolist2.domain.todos.dto.TodoResponse
 import com.teamsparta.todolist2.domain.todos.dto.UpdateTodoRequest
 import com.teamsparta.todolist2.domain.todos.service.TodoService
+import io.swagger.v3.oas.annotations.Operation
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -22,6 +23,7 @@ class TodoController(
     private val todoService: TodoService
 ) {
 
+    @Operation(summary = "todo 전체 조회")
     @GetMapping
     fun todos(@PathVariable cardId: Long): ResponseEntity<List<TodoResponse>> {
         return ResponseEntity
@@ -29,6 +31,7 @@ class TodoController(
             .body(todoService.todos(cardId))
     }
 
+    @Operation(summary = "todo 단건 조회")
     @GetMapping("/{todoId}")
     fun todo(
         @PathVariable cardId: Long,
@@ -39,6 +42,7 @@ class TodoController(
             .body(todoService.todo(cardId, todoId))
     }
 
+    @Operation(summary = "todo 생성")
     @PostMapping
     fun createTodo(
         @PathVariable cardId: Long,
@@ -49,6 +53,7 @@ class TodoController(
             .body(todoService.createTodo(cardId, createTodoRequest))
     }
 
+    @Operation(summary = "todo 수정")
     @PutMapping("/{todoId}")
     fun updateTodo(
         @PathVariable cardId: Long,
@@ -60,6 +65,7 @@ class TodoController(
             .body(todoService.updateTodo(cardId, todoId, updateTodoRequest))
     }
 
+    @Operation(summary = "todo 삭제")
     @DeleteMapping("/{todoId}")
     fun deleteTodo(
         @PathVariable cardId: Long,
