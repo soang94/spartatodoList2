@@ -56,6 +56,7 @@ class UserServiceImpl(
             accessToken = jwtPlugin.generateAccessToken(
                 subject = user.id.toString(),
                 email = user.email,
+                role = user.role.name
             )
         )
     }
