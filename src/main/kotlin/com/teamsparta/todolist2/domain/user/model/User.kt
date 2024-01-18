@@ -4,7 +4,7 @@ import com.teamsparta.todolist2.domain.user.dto.UserResponse
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "user")
+@Table(name = "app_user")
 class User(
     @Column(name = "email")
     val email: String,
