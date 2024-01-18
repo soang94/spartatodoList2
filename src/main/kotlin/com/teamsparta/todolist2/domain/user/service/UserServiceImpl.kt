@@ -7,11 +7,13 @@ import com.teamsparta.todolist2.domain.user.model.User
 import com.teamsparta.todolist2.domain.user.model.toResponse
 import com.teamsparta.todolist2.domain.user.repository.UserRepository
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
 class UserServiceImpl(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val passwordEncoder: PasswordEncoder
 ): UserService {
     override fun user(userId: Long): UserResponse {
         val user= userRepository.findByIdOrNull(userId) ?: throw ModelNotFoundException("user", userId)
@@ -19,11 +21,11 @@ class UserServiceImpl(
         return user.toResponse()
     }
 
-    override fun createUser(request: SignUpRequest): UserResponse {
+    override fun signUp(request: SignUpRequest): UserResponse {
         return userRepository.save(
             User (
                 email = request.email,
-                password = request.password,
+                password = passwordEncoder.encode(request.password),
                 name = request.name
             )
         ).toResponse()

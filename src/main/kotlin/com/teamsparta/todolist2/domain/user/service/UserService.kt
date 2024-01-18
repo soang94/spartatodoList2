@@ -6,5 +6,5 @@ import com.teamsparta.todolist2.domain.user.dto.UserResponse
 interface UserService {
     fun user(userId: Long): UserResponse
 
-    fun createUser(request: SignUpRequest): UserResponse
+    fun signUp(request: SignUpRequest): UserResponse
 }

@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
-@RequestMapping("/users")
+@RequestMapping
 @RestController
 class UserController(
     private val userService: UserService
 ) {
 
     @Operation(summary = "회원 정보 단건 조회")
-    @GetMapping("/{userId}")
+    @GetMapping("/users/{userId}")
     fun user(@PathVariable userId: Long): ResponseEntity<UserResponse> {
         return ResponseEntity
             .status(HttpStatus.OK)
@@ -29,10 +29,10 @@ class UserController(
     }
 
     @Operation(summary = "회원가입")
-    @PostMapping
+    @PostMapping("/signup")
     fun createUser(@RequestBody signUpRequest: SignUpRequest): ResponseEntity<UserResponse> {
         return ResponseEntity
             .status(HttpStatus.CREATED)
-            .body(userService.createUser(signUpRequest))
+            .body(userService.signUp(signUpRequest))
     }
 }
