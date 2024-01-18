@@ -1,6 +1,7 @@
 package com.teamsparta.todolist2.domain.user.model
 
 import com.teamsparta.todolist2.domain.user.dto.UserResponse
+import com.teamsparta.todolist2.domain.user.repository.UserRole
 import jakarta.persistence.*
 
 @Entity
@@ -13,7 +14,12 @@ class User(
     val password: String,
 
     @Column(name = "name")
-    val name: String
+    val name: String,
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
+    val role: UserRole,
+
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,5 +31,6 @@ fun User.toResponse(): UserResponse {
         id = id!!,
         email =email,
         name = name,
+        role = role.name
     )
 }

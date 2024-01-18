@@ -9,6 +9,7 @@ import com.teamsparta.todolist2.domain.user.dto.UserResponse
 import com.teamsparta.todolist2.domain.user.model.User
 import com.teamsparta.todolist2.domain.user.model.toResponse
 import com.teamsparta.todolist2.domain.user.repository.UserRepository
+import com.teamsparta.todolist2.domain.user.repository.UserRole
 import com.teamsparta.todolist2.infra.security.jwt.JwtPlugin
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -34,7 +35,12 @@ class UserServiceImpl(
             User (
                 email = request.email,
                 password = passwordEncoder.encode(request.password),
-                name = request.name
+                name = request.name,
+                role = when (request.role) {
+                    "ADMIN" -> UserRole.ADMIN
+                    "MEMBER" -> UserRole.MEMBER
+                    else -> throw IllegalArgumentException("Invalid role")
+                }
             )
         ).toResponse()
     }
