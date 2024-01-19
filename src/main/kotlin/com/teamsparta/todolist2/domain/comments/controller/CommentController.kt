@@ -8,6 +8,7 @@ import com.teamsparta.todolist2.domain.todos.service.TodoService
 import io.swagger.v3.oas.annotations.Operation
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -57,6 +58,7 @@ class CommentController(
 
     @Operation(summary = "댓글 수정")
     @PutMapping("/{commentId}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MEMBER')")
     fun updateComment(
         @PathVariable todoId: Long,
         @PathVariable commentId: Long,
@@ -69,6 +71,7 @@ class CommentController(
 
     @Operation(summary = "댓글 삭제")
     @DeleteMapping("/{commentId}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MEMBER')")
     fun deleteComment(
         @PathVariable todoId: Long,
         @PathVariable commentId: Long,

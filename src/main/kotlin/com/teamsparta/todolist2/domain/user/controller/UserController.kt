@@ -30,9 +30,8 @@ class UserController(
 
     @Operation(summary = "회원 정보 단건 조회")
     @GetMapping("/users/{userId}")
-    @PreAuthorize("#userId == principal.id")
-    fun user(@PathVariable userId: Long,
-//             @AuthenticationPrincipal userPrincipal: UserPrincipal
+    @PreAuthorize("hasRole('ADMIN') or #userId == principal.id")
+    fun user(@PathVariable userId: Long
     ): ResponseEntity<UserResponse> {
         return ResponseEntity
             .status(HttpStatus.OK)

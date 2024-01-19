@@ -7,6 +7,7 @@ import com.teamsparta.todolist2.domain.cards.service.CardService
 import io.swagger.v3.oas.annotations.Operation
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -50,6 +51,7 @@ class CardController(
 
     @Operation(summary = "card 수정")
     @PutMapping("/{cardId}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MEMBER')")
     fun updateCard(
         @PathVariable cardId: Long,
         @RequestBody updateCardRequest: UpdateCardRequest
@@ -61,6 +63,7 @@ class CardController(
 
     @Operation(summary = "card 삭제")
     @DeleteMapping("/{cardId}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MEMBER')")
     fun deleteCard(
         @PathVariable cardId: Long
     ): ResponseEntity<Any> {
